@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)http://youyou123.3vcn.work/t.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>请假</title>
+    <style>
+        @font-face {
+            font-family: "oo";
+            src: url('./1.ttc');
+            font-weight: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 14px !important;
+            font-family: 'oo';
+        }
+
+        body {
+            background-color: #f9f9f9;
+            padding: 0;
+            margin: 0;
+            font-weight: 350 !important;
+        }
+
+        .container {
+            max-width: 100%;
+            background-color: #fff;
+            border-radius: 12px;
+        }
+
+        .tab-menu {
+            display: flex;
+            justify-content: space-between;
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+            font-size: 16px;
+            position: relative;
+        }
+
+        .tab {
+            width: 50%;
+            text-align: center;
+            padding: 12px 0;
+            cursor: pointer;
+            color: #ccc;
+            font-weight: 200;
+            position: relative;
+        }
+
+        .tab.active {
+            color: #ff800e;
+        }
+
+        .tab.active::before {
+            content: "";
+            position: absolute;
+            left: 38%;
+            bottom: 0;
+            width: 25%;
+            height: 3px;
+            background-color: #ff800e;
+            border-radius: 5px;
+        }
+
+        .img {
+            margin: 10px auto;
+        }
+
+        .img img {
+            width: 100%;
+        }
+
+
+
+        .request-time-container {
+            color: #333;
+            width: 89%;
+            padding: 12px 9px;
+            margin: 0 auto;
+            background-color: #fff;
+            margin-top: -16px;
+        }
+
+        .xian {
+            display: block;
+            border: 1px solid #f7f7f7;
+            margin: 9px 0 19px;
+        }
+
+        .label {
+            margin-bottom: 5px;
+        }
+
+        .warning {
+            color: #ff5e5e;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .time-inputs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .time-inputs input {
+            width: 42.5%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #f8f8fa;
+            border: 1px solid #f8f8fa;
+            border-radius: 5px;
+            color: #999999;
+        }
+
+        .approver {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .approver span {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .approver input {
+            padding: 10px;
+            font-size: 16px;
+            width: 78%;
+            background-color: #f8f8fa;
+            border: 1px solid #f8f8fa;
+            border-radius: 5px;
+            color: #999999;
+        }
+
+
+
+        /*  */
+        .approval-process {
+            width: 89%;
+            padding: 12px 9px 1px;
+            margin: 0 auto;
+            background-color: #fff;
+            margin-top: 20px;
+            border-radius: 5px;
+            color: #222222;
+        }
+
+        .a_t {
+            margin: 0 0 15px 0;
+        }
+
+        .step {
+            display: flex;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .left {
+            position: relative;
+            width: 30px;
+            /* 控制左侧留白 */
+            display: flex;
+            justify-content: center;
+        }
+
+        .icon {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: white;
+            border: 3px solid #ff7a00;
+            /* 边框颜色为橙色 */
+            position: relative;
+            z-index: 1;
+            margin-left: 3.1px;
+        }
+
+        .dashed-line {
+            width: 2px;
+            background-color: transparent;
+            position: absolute;
+            top: 12px;
+            /* 根据需要调整 */
+            left: 50%;
+            transform: translateX(-50%);
+            height: 130%;
+            /* 动态计算高度 */
+            border-right: 2px dashed #ff7a00;
+            /* 虚线颜色为橙色 */
+            z-index: 0;
+        }
+
+        .step:last-child .dashed-line {
+            display: none;
+            /* 最后一个步骤不显示虚线 */
+        }
+
+        .right {
+            flex-grow: 1;
+            padding-left: 10px;
+            /* 与左侧图标保持适当距离 */
+        }
+
+        .right input {
+            border: none;
+            width: 45px;
+            font-size: 15px;
+        }
+
+        .r_x {
+            display: block;
+            border: 0.5px solid #ebedf0;
+            margin-top: 20px;
+        }
+
+        .name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .name span {
+            font-size: 12px;
+            color: #999999;
+            font-weight: 200;
+        }
+
+        .time {
+            font-size: 12px;
+            color: #999999;
+            margin-top: 9px;
+        }
+
+        .status {
+            font-size: 15px;
+            color: #222222;
+            margin-top: -18px;
+            float: right;
+            font-weight: 350;
+        }
+
+        .status.orange {
+            color: #ff800e;
+        }
+
+        .comments {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            height: 50px;
+        }
+
+
+        .toxiang {
+            color: #333;
+            width: 89%;
+            padding: 12px 9px;
+            margin: 0 auto;
+            background-color: #fff;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .toxiang ul {
+            display: flex;
+        }
+
+        .toxiang img {
+            width: 110px;
+            height: 110px;
+            margin-left: 10px;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+
+        .toxiang input {
+            border: none;
+        }
+
+        li {
+            list-style: none;
+        }
+
+
+        .bo1 {
+            color: #333;
+            width: 89%;
+            padding: 12px 9px;
+            margin: 0 auto;
+            background-color: #fff;
+        }
+
+        .bo1 img {
+            margin-left: 35px;
+            position: relative;
+            top: 4px;
+        }
+
+        .bo1 input {
+            border: none;
+            position: relative;
+            top: -1px;
+            left: 5px;
+        }
+
+        .xian2 {
+            display: block;
+            border: 0.5px solid #f7f7f7;
+            margin: 9px 0 !important;
+        }
+
+        .bo1 p img {
+            width: 20px;
+            margin-left: 15px;
+        }
+
+        .bo1 p {
+            font-size: 14px;
+            margin: 20px 0;
+        }
+
+        .bo2 input {
+            width: 96%;
+            padding: 12px 5px;
+            background-color: #f8f8fa;
+            color: #c8c9cc;
+            margin-top: 10px;
+            padding-bottom: 50px;
+        }
+    </style>
+<input type="hidden" id="_w_simile" data-inspect-config="3"><script type="text/javascript" src="chrome-extension://dbjbempljhcmhlfpfacalomonjpalpko/scripts/inspector.js"></script><style data-id="immersive-translate-input-injected-css">.immersive-translate-input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 2147483647;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.immersive-translate-loading-spinner {
+  vertical-align: middle !important;
+  width: 10px !important;
+  height: 10px !important;
+  display: inline-block !important;
+  margin: 0 4px !important;
+  border: 2px rgba(221, 244, 255, 0.6) solid !important;
+  border-top: 2px rgba(0, 0, 0, 0.375) solid !important;
+  border-left: 2px rgba(0, 0, 0, 0.375) solid !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  -webkit-animation: immersive-translate-loading-animation 0.6s infinite linear !important;
+  animation: immersive-translate-loading-animation 0.6s infinite linear !important;
+}
+
+@-webkit-keyframes immersive-translate-loading-animation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
+@keyframes immersive-translate-loading-animation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+
+.immersive-translate-input-loading {
+  --loading-color: #f78fb6;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: block;
+  margin: 12px auto;
+  position: relative;
+  color: white;
+  left: -100px;
+  box-sizing: border-box;
+  animation: immersiveTranslateShadowRolling 1.5s linear infinite;
+}
+
+@keyframes immersiveTranslateShadowRolling {
+  0% {
+    box-shadow: 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  12% {
+    box-shadow: 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  25% {
+    box-shadow: 110px 0 var(--loading-color), 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  36% {
+    box-shadow: 120px 0 var(--loading-color), 110px 0 var(--loading-color), 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  50% {
+    box-shadow: 130px 0 var(--loading-color), 120px 0 var(--loading-color), 110px 0 var(--loading-color), 100px 0 var(--loading-color);
+  }
+
+  62% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color), 120px 0 var(--loading-color), 110px 0 var(--loading-color);
+  }
+
+  75% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color), 120px 0 var(--loading-color);
+  }
+
+  87% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color);
+  }
+
+  100% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0);
+  }
+}
+
+
+.immersive-translate-search-recomend {
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  position: relative;
+  font-size: 16px;
+}
+
+.immersive-translate-search-enhancement-en-title {
+  color: #4d5156;
+}
+
+/* dark */
+@media (prefers-color-scheme: dark) {
+  .immersive-translate-search-recomend {
+    border: 1px solid #3c4043;
+  }
+
+  .immersive-translate-close-action svg {
+    fill: #bdc1c6;
+  }
+
+  .immersive-translate-search-enhancement-en-title {
+    color: #bdc1c6;
+  }
+}
+
+
+.immersive-translate-search-settings {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  cursor: pointer;
+}
+
+.immersive-translate-search-recomend::before {
+  /* content: " "; */
+  /* width: 20px; */
+  /* height: 20px; */
+  /* top: 16px; */
+  /* position: absolute; */
+  /* background: center / contain url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAxlBMVEUAAADpTInqTIjpSofnSIfqS4nfS4XqS4nqTIjsTYnrTInqTIroS4jvQIDqTIn////+/v7rSYjpTIn8/v7uaZzrTIr9/f3wfansWJL88/b85e73qc39+/v3xNnylrvrVI/98fb62Obva5/8+fr76vH4y9zpSIj74e353Oj1ocTzm77xhK/veKbtYpjsXJTqU47oTInxjrXyh7L99fj40eH2ttH1udD3sc31ssz1rMnykLXucqPtbqD85e/1xdn2u9DzqcXrUY6FaJb8AAAADnRSTlMA34BgIM8Q37/fz7+/EGOHcVQAAAGhSURBVDjLhZPncuowEEZFTW7bXVU7xsYYTO/p7bb3f6lICIOYJOT4h7/VnFmvrBFjrF3/CR/SajBHswafctG0Qg3O8O0Xa8BZ6uw7eLjqr30SofCDVSkemMinfL1ecy20r5ygR5zz3ArcAqJExPTPKhDENEmS30Q9+yo4lEQkqVTiIEAHCT10xWERRdH0Bq0aCOPZNDV3s0xaYce1lHEoDHU8wEh3qRJypNcTAeKUIjgKMeGLDoRCLVLTVf+Ownj8Kk6H9HM6QXPgYjQSB0F00EJEu10ILQrs/QeP77BSSr0MzLOyuJJQbnUoOOIUI/A8EeJk9E4YUHUWiRyTVKGgQUB8/3e/NpdGlfI+FMQyWsCBWyz4A/ZyHXyiiz0Ne5aGZssoxRmcChw8/EFKQ5JwwkUo3FRT5yXS7q+Y/rHDZmFktzpGMvO+5QofA4FPpEmGw+EWRCFvnaof7Zhe8NuYSLR0xErKLThUSs8gnODh87ssy6438yzbLzxl012HS19vfCf3CNhnbWOL1eEsDda+gDPUvri8tSZzNFrwIZf1NmNvqC1I/t8j7nYAAAAASUVORK5CYII='); */
+}
+
+.immersive-translate-search-title {}
+
+.immersive-translate-search-title-wrapper {}
+
+.immersive-translate-search-time {
+  font-size: 12px;
+  margin: 4px 0 24px;
+  color: #70757a;
+}
+
+.immersive-translate-expand-items {
+  display: none;
+}
+
+.immersive-translate-search-more {
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+.immersive-translate-modal {
+  display: none;
+  position: fixed;
+  z-index: 2147483647;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  font-size: 15px;
+}
+
+.immersive-translate-modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 40px 24px 24px;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 270px;
+  font-family: system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu",
+    "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+  position: relative
+}
+
+.immersive-translate-modal .immersive-translate-modal-content-in-input {
+  max-width: 500px;
+}
+.immersive-translate-modal-content-in-input .immersive-translate-modal-body {
+  text-align: left;
+  max-height: unset;
+}
+
+.immersive-translate-modal-title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #333333;
+}
+
+.immersive-translate-modal-body {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333333;
+  word-break: break-all;
+  margin-top: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  .immersive-translate-modal-body {
+    max-height: 250px;
+    overflow-y: auto;
+  }
+}
+
+.immersive-translate-close {
+  color: #666666;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.immersive-translate-close:hover,
+.immersive-translate-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.immersive-translate-modal-footer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.immersive-translate-btn {
+  width: fit-content;
+  color: #fff;
+  background-color: #ea4c89;
+  border: none;
+  font-size: 16px;
+  margin: 0 8px;
+  padding: 9px 30px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.immersive-translate-btn:hover {
+  background-color: #f082ac;
+}
+
+.immersive-translate-cancel-btn {
+  /* gray color */
+  background-color: rgb(89, 107, 120);
+}
+
+
+.immersive-translate-cancel-btn:hover {
+  background-color: hsl(205, 20%, 32%);
+}
+
+.immersive-translate-action-btn {
+  background-color: transparent;
+  color: #EA4C89;
+  border: 1px solid #EA4C89
+}
+
+.immersive-translate-btn svg {
+  margin-right: 5px;
+}
+
+.immersive-translate-link {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  text-decoration: none;
+  color: #007bff;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, .1);
+}
+
+.immersive-translate-primary-link {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  text-decoration: none;
+  color: #ea4c89;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, .1);
+}
+
+.immersive-translate-modal input[type="radio"] {
+  margin: 0 6px;
+  cursor: pointer;
+}
+
+.immersive-translate-modal label {
+  cursor: pointer;
+}
+
+.immersive-translate-close-action {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  cursor: pointer;
+}</style></head>
+
+<body>
+    <div class="container">
+        <div class="tab-menu">
+            <div class="tab active">请假单</div>
+            <div class="tab">审批流程</div>
+        </div>
+    </div>
+    <div class="img">
+        <img src="./请假_files/1.png" alt="">
+        <div class="toxiang">
+            <ul>
+                <li>
+                    <img src="./请假_files/w.jpg" alt="" id="tou">
+                </li>
+                <li>
+                    <div style="margin-left: 20px;line-height: 26px;margin-top: 3px;font-weight:301; font-size: 15px;">
+                        <p>
+                            姓名：<input type="text" value="刘奔宇" id="i1">
+                        </p>
+                        <p>
+                            学号：<input type="text" value="202420304" id="i2">
+                        </p>
+                        <p>
+                            班级：<input type="text" value="计科Z2403" id="i3">
+                        </p>
+                        <p>
+                            院系：<input type="text" value="信息工程学院" id="i4">
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+
+        <div class="bo">
+            <div class="bo1">
+                <span>请假类型</span>
+                <img src="./请假_files/x.png" alt="" style="width: 20px;">
+                <input type="text" value="病假">
+                <p class="xian2"></p>
+            </div>
+
+
+            <div class="bo1" style="padding: 0 9px 20px; margin-top: -9px;">
+                <span>请假位置</span>
+                <span style="float: right;margin-right: 10%;">湖北省-荆州市</span>
+                <p>
+                    <img src="./请假_files/d.png" alt="">
+                    &nbsp;&nbsp;荆州区G318(沪聂线)太湖农场万金织业有限公司
+                </p>
+            </div>
+            <div class="bo1 bo2" style="padding: 0 9px; margin-top: -9px;padding-bottom: 10px;">
+                <span>具体事项</span><br>
+                <input type="text" value="快递">
+                <p class="xian2"></p>
+            </div>
+
+            <div class="bo1 bo2" style="padding: 0 9px; margin-top: -9px;padding-bottom: 10px;">
+                <span>目的地</span>
+                <span style="float: right;color: #969799;margin-right: 1%;">
+                    <input type="text" value="湖北省-荆州市-沙市区" style="padding: 0;background-color: #fff;margin-top: 0; width: 142px;">
+                </span>
+                <br>
+                <input type="text" value="门口">
+                <p class="xian2"></p>
+            </div>
+
+            <div class="bo1 bo2" style="padding: 0 9px; margin-top: -9px;padding-bottom: 10px;">
+                <span>出行方式</span><br>
+                <input type="text" value="打车">
+                <p class="xian2"></p>
+            </div>
+        </div>
+        <img src="./请假_files/2.png" alt="">
+    </div>
+
+    <div class="request-time-container">
+        <div class="label">请假时间</div>
+        <div class="warning">(请在请假时间内按时返校, 超时返校将影响后续请假)</div>
+        <div class="time-inputs">
+            <input type="text" id="startTime" value="2024-10-24 11:22" readonly="">
+            <input type="text" id="endTime" value="2024-10-24 14:22" readonly="">
+        </div>
+        <span class="xian"></span>
+        <div class="approver">
+            <span>审批人</span>
+            <input type="text" value="吕艳灵" id="i7">
+        </div>
+    </div>
+
+    <div class="approval-process">
+        <p class="a_t">审批流程</p>
+        <div class="step">
+            <div class="left">
+                <div class="icon orange"></div>
+                <div class="dashed-line"></div>
+            </div>
+            <div class="right">
+                <div class="name"><input type="text" value="吴喆鸣" id="i5"> <span>(申请人)</span></div>
+                <div class="status">提交申请</div>
+                <div class="time" id="applicantTime">2025-09-01 12:24:25</div> <!-- 时间将在这里显示 -->
+                <span class="r_x"></span>
+            </div>
+        </div>
+        <div class="step">
+            <div class="left">
+                <div class="icon orange"></div>
+            </div>
+            <div class="right" style="margin-top: -3px;">
+                <div class="name"><input type="text" value="吕艳灵" id="i6"> <span>(一级审批)</span></div>
+                <div class="status orange">同意并终止</div>
+                <div class="comments">无</div>
+                <div class="time" id="approverTime">2025-09-01 13:07:15</div> <!-- 时间将在这里显示 -->
+            </div>
+        </div>
+    </div>
+
+
+
+
+<script>
+    // 获取今天的日期
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // 月份从0开始，所以加1
+    const day = String(today.getDate()).padStart(2, '0');
+
+    // 构造新的时间字符串
+    const startTime = `${year}-${month}-${day} 08:00`;
+    const endTime = `${year}-${month}-${day} 21:00`;
+
+    // 更新输入框的值
+    document.getElementById('startTime').value = startTime;
+    document.getElementById('endTime').value = endTime;
+</script>
+
+<script>
+    // 生成随机时间函数
+    function getRandomTime(startHour, endHour) {
+        const startMinutes = startHour * 60; // 转换为分钟
+        const endMinutes = endHour * 60; // 转换为分钟
+        const randomMinutes = Math.floor(Math.random() * (endMinutes - startMinutes + 1)) + startMinutes; // 生成随机分钟
+
+        const hours = Math.floor(randomMinutes / 60);
+        const minutes = randomMinutes % 60;
+        const seconds = String(Math.floor(Math.random() * 60)).padStart(2, '0'); // 生成0-59之间的随机秒
+
+        return `${year}-${month}-${day} ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${seconds}`; // 格式化为 "YYYY-MM-DD HH:mm:ss"
+    }
+
+    // 生成第一个时间：8:00到10:00之间随机
+    const firstTime = getRandomTime(12, 13);
+    // 生成第二个时间：10:30到11:30之间随机
+    const secondTime = getRandomTime(13, 13.5);
+
+    // 更新页面中的时间
+    document.getElementById('applicantTime').innerText = firstTime;
+    document.getElementById('approverTime').innerText = secondTime;
+</script>
+
+<script>
+    // var userInput = prompt("请输入名字:");
+
+    let tou = document.getElementById("tou")
+    
+    if (userInput == '吴喆鸣') {
+        tou.src = './w.jpg'
+        document.getElementById("i1").value = '吴喆鸣'
+        document.getElementById("i2").value = '201964101'
+        document.getElementById("i3").value = '计应专2401'
+        document.getElementById("i4").value = '信息工程学院'
+        document.getElementById("i5").value = '吴喆鸣'
+        document.getElementById("i6").value = '吕艳灵'
+        document.getElementById("i7").value = '吕艳灵'
+    } else if (userInput == '周清瑜') {
+        tou.src = './z.png'
+        document.getElementById("i1").value = '周清瑜'
+        document.getElementById("i2").value = '202210178'
+        document.getElementById("i3").value = '工商2201'
+        document.getElementById("i4").value = '管理学院'
+        document.getElementById("i5").value = '周清瑜'
+        document.getElementById("i6").value = '季诚'
+        document.getElementById("i7").value = '季诚'
+    }
+    else if (userInput == '冯凯凯') {
+        tou.src = './f.jpg'
+        document.getElementById("i1").value = '冯凯凯'
+        document.getElementById("i2").value = '202420950'
+        document.getElementById("i3").value = '计科Z2404'
+        document.getElementById("i4").value = '信息工程学院'
+        document.getElementById("i5").value = '冯凯凯'
+        document.getElementById("i6").value = '牛佳鑫'
+        document.getElementById("i7").value = '牛佳鑫'
+    }
+    else if (userInput == '黄佳鑫') {
+        tou.src = './c.jpg'
+        document.getElementById("i1").value = '黄佳鑫'
+        document.getElementById("i2").value = '202420960'
+        document.getElementById("i3").value = '计科Z2404'
+        document.getElementById("i4").value = '信息工程学院'
+        document.getElementById("i5").value = '黄佳鑫'
+        document.getElementById("i6").value = '牛佳鑫'
+        document.getElementById("i7").value = '牛佳鑫'
+    }
+    else if (userInput == '柯锦') {
+        tou.src = './k.jpg'
+        document.getElementById("i1").value = '柯锦'
+        document.getElementById("i2").value = '202420965'
+        document.getElementById("i3").value = '计科Z2404'
+        document.getElementById("i4").value = '信息工程学院'
+        document.getElementById("i5").value = '柯锦'
+        document.getElementById("i6").value = '牛佳鑫'
+        document.getElementById("i7").value = '牛佳鑫'
+    }
+    else if (userInput == '胡金浩') {
+        tou.src = './h.png'
+        document.getElementById("i1").value = '胡金浩'
+        document.getElementById("i2").value = '202420957'
+        document.getElementById("i3").value = '计科Z2404'
+        document.getElementById("i4").value = '信息工程学院'
+        document.getElementById("i5").value = '胡金浩'
+        document.getElementById("i6").value = '牛佳鑫'
+        document.getElementById("i7").value = '牛佳鑫'
+    }
+    else if (userInput == '胡锦升') {
+        tou.src = './h.jpg'
+        document.getElementById("i1").value = '胡锦升'
+        document.getElementById("i2").value = '202420957'
+        document.getElementById("i3").value = '计科Z2404'
+        document.getElementById("i4").value = '信息工程学院'
+        document.getElementById("i5").value = '胡锦升'
+        document.getElementById("i6").value = '牛佳鑫'
+        document.getElementById("i7").value = '牛佳鑫'
+    }
+
+</script><div style="clear:both;"></div>
